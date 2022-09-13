@@ -10,8 +10,8 @@ namespace Auth
         {
             var mappingConfig = new MapperConfiguration(config =>
             {
-                config.CreateMap<UsuarioDto, Usuario>();
-                config.CreateMap<Usuario, UsuarioDto>();
+                config.CreateMap<Usuario_autenticacionDto, Usuario_autenticacion>();
+                config.CreateMap<Usuario_autenticacion, Usuario_autenticacionDto>();
 
                 config.CreateMap<RolDto, Rol>();
                 config.CreateMap<Rol, RolDto>();

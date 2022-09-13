@@ -21,10 +21,10 @@ namespace Auth.Controllers
         }
 
         [HttpPost("register")]
-       public async Task<IActionResult> crearusuario(UsuarioDto usuario)
+       public async Task<IActionResult> crearusuario(Usuario_autenticacionDto usuario)
        {
            var respuesta = await _usuarioRepositorio.RegistrarUsuario(
-               new Usuario
+               new Usuario_autenticacion
                {
                    Username = usuario.Nombre_usuario
                }, usuario.Password);

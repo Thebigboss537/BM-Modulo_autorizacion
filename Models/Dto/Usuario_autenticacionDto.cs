@@ -3,7 +3,7 @@ using Auth.Util;
 
 namespace Auth.Models.Dto
 {
-    public class UsuarioDto
+    public class Usuario_autenticacionDto
     {
         public int Nombre_usuario { get; set; }
 

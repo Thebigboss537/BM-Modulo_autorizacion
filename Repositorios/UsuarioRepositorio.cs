@@ -33,7 +33,7 @@ namespace Auth.Repositorio
 
         public async Task<string> Login(string Nombre_usuario, string password)
         {
-            var user = await _db.Usuarios.FirstOrDefaultAsync(x => x.Username.ToString().ToLower().Equals(Nombre_usuario.ToString().ToLower()));
+            var user = await _db.Usuarios_autenticacion.FirstOrDefaultAsync(x => x.Username.ToString().ToLower().Equals(Nombre_usuario.ToString().ToLower()));
 
             
             if (user == null)
@@ -54,7 +54,7 @@ namespace Auth.Repositorio
             }
         }
 
-        public async Task<string> RegistrarUsuario(Usuario usuario, string password)
+        public async Task<string> RegistrarUsuario(Usuario_autenticacion usuario, string password)
         {
 
             try
@@ -67,8 +67,8 @@ namespace Auth.Repositorio
                         usuario.PasswordHash = passwordHash;
                         usuario.PasswordSalt = passwordSalt;
                         usuario.Id_rol = 2;
-                        usuario.Id_usuario = _db.Usuarios.AsNoTracking().Where(e => e.Username == usuario.Username).FirstOrDefault().Id_usuario;
-                        _db.Usuarios.Update(usuario);
+                        usuario.Id_usuario_autenticacion = _db.Usuarios_autenticacion.AsNoTracking().Where(e => e.Username == usuario.Username).FirstOrDefault().Id_usuario_autenticacion;
+                        _db.Usuarios_autenticacion.Update(usuario);
                         await _db.SaveChangesAsync();
                         return CrearToken(usuario);
                     }
@@ -91,7 +91,7 @@ namespace Auth.Repositorio
 
         public async Task<bool> UserExiste(string Nombre_usuario)
         {
-            if (await _db.Usuarios.AnyAsync(x => x.Username.ToString().ToLower().Equals(Nombre_usuario.ToLower())))
+            if (await _db.Usuarios_autenticacion.AnyAsync(x => x.Username.ToString().ToLower().Equals(Nombre_usuario.ToLower())))
             {
                 return true;
             }
@@ -125,11 +125,11 @@ namespace Auth.Repositorio
             }
         }
 
-        private string CrearToken(Usuario usuario)
+        private string CrearToken(Usuario_autenticacion usuario)
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, usuario.Id_usuario.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, usuario.Id_usuario_autenticacion.ToString()),
                 new Claim(ClaimTypes.Name, usuario.Username.ToString()),
                 new Claim(ClaimTypes.Role, usuario.Id_rol.ToString())
             };
@@ -154,7 +154,7 @@ namespace Auth.Repositorio
 
         public async Task<bool> Noregistrado(string cedula)
         {
-            var a = await _db.Usuarios.AsNoTracking().Where(e => e.Username.ToString() == cedula).FirstOrDefaultAsync();
+            var a = await _db.Usuarios_autenticacion.AsNoTracking().Where(e => e.Username.ToString() == cedula).FirstOrDefaultAsync();
 
             if (a.Id_rol.Equals(3))
             {

@@ -5,10 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Auth.Models
 {
-    public class Usuario
+    public class Usuario_autenticacion
     {
         [Key]
-        public int Id_usuario { get; set; }
+        public int Id_usuario_autenticacion { get; set; }
 
         public int Username { get; set; }
 
