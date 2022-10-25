@@ -40,7 +40,7 @@ namespace Auth.Repositorio
             {
                 return "nouser";
             }
-            else if (user.Id_rol == 3)
+            else if (user.PasswordHash == null)
             {
                 return "usuario no registrado";
             }
@@ -66,7 +66,14 @@ namespace Auth.Repositorio
                         CrearPasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
                         usuario.PasswordHash = passwordHash;
                         usuario.PasswordSalt = passwordSalt;
-                        usuario.Id_rol = 2;
+                        if (await isbibliotecario(usuario.Username.ToString()))
+                        {
+                            usuario.Id_rol = 4;
+                        }
+                        else
+                        {
+                            usuario.Id_rol = 2;
+                        }
                         usuario.Id_usuario_autenticacion = _db.Usuarios_autenticacion.AsNoTracking().Where(e => e.Username == usuario.Username).FirstOrDefault().Id_usuario_autenticacion;
                         _db.Usuarios_autenticacion.Update(usuario);
                         await _db.SaveChangesAsync();
@@ -157,6 +164,17 @@ namespace Auth.Repositorio
             var a = await _db.Usuarios_autenticacion.AsNoTracking().Where(e => e.Username.ToString() == cedula).FirstOrDefaultAsync();
 
             if (a.Id_rol.Equals(3))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> isbibliotecario(string cedula)
+        {
+            var a = await _db.Usuarios_autenticacion.AsNoTracking().Where(e => e.Username.ToString() == cedula).FirstOrDefaultAsync();
+
+            if (a.Id_rol.Equals(4))
             {
                 return true;
             }
