@@ -163,7 +163,7 @@ namespace Auth.Repositorio
         {
             var a = await _db.Usuarios_autenticacion.AsNoTracking().Where(e => e.Username.ToString() == cedula).FirstOrDefaultAsync();
 
-            if (a.Id_rol.Equals(3))
+            if (a.PasswordHash == null)
             {
                 return true;
             }
