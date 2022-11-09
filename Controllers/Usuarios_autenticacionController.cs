@@ -9,12 +9,12 @@ namespace Auth.Controllers
 {
     [Route("Auth")]
     [ApiController]
-    public class UsuariosController : ControllerBase
+    public class Usuarios_autenticacionController : ControllerBase
     {
         private readonly IUsuarioRepositorio _usuarioRepositorio;
         protected ResponseDto _response;
 
-        public UsuariosController(IUsuarioRepositorio usuarioRepositorio)
+        public Usuarios_autenticacionController(IUsuarioRepositorio usuarioRepositorio)
         {
             _usuarioRepositorio = usuarioRepositorio;
             _response = new ResponseDto();
