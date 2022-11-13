@@ -8,6 +8,7 @@ namespace Auth.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
         public DbSet<Usuario_autenticacion> Usuarios_autenticacion { get; set; }
         public DbSet<Rol> Roles { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
     }
 }
 

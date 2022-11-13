@@ -134,9 +134,11 @@ namespace Auth.Repositorio
 
         private string CrearToken(Usuario_autenticacion usuario)
         {
+            var a = _db.Usuarios.FirstOrDefault(e => e.Id_usuario_autenticacion == usuario.Id_usuario_autenticacion);
+
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, usuario.Id_usuario_autenticacion.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, a.Id_usuario.ToString()),
                 new Claim(ClaimTypes.Name, usuario.Username.ToString()),
                 new Claim(ClaimTypes.Role, usuario.Id_rol.ToString())
             };
